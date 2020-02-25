@@ -8,6 +8,17 @@ Template.afFieldInput.helpers({
 
     // Determine what `type` attribute should be if not set
     var inputType = AutoForm.getInputType(this);
+    // hack: include hideFields - start
+    var hideFields = AutoForm.findAttribute('hideFields');
+    if (hideFields) {
+      hideFields = AutoForm.Utility.stringToArray(hideFields, 'AutoForm: hideFields attribute must be an array or a string containing a comma-delimited list of fields');
+      // console.log(hideFields);
+      if (hideFields.indexOf(self.name) > -1){
+        // console.log(`going to hide: ${self.name}`);
+        inputType = "hidden"; // hide input
+      }
+    }
+    // hack: include hideFields - end
     var componentDef = AutoForm._inputTypeDefinitions[inputType];
     if (!componentDef) {
       throw new Error('AutoForm: No component found for rendering input with type "' + inputType + '"');
@@ -51,6 +62,17 @@ Template.afFieldInput.helpers({
 
     // Determine what `type` attribute should be if not set
     var inputType = AutoForm.getInputType(this);
+    // hack: include hideFields - start
+    var hideFields = AutoForm.findAttribute('hideFields');
+    if (hideFields) {
+      hideFields = AutoForm.Utility.stringToArray(hideFields, 'AutoForm: hideFields attribute must be an array or a string containing a comma-delimited list of fields');
+      // console.log(hideFields);
+      if (hideFields.indexOf(self.name) > -1){
+        // console.log(`going to hide: ${self.name}`);
+        inputType = "hidden"; // hide input
+      }
+    }
+    // hack: include hideFields - end    
     var componentDef = AutoForm._inputTypeDefinitions[inputType];
     if (!componentDef) {
       throw new Error('AutoForm: No component found for rendering input with type "' + inputType + '"');

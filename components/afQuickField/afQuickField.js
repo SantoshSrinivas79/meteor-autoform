@@ -22,6 +22,15 @@ Template.afQuickField.helpers({
   isHiddenInput: function afQuickFieldIsHiddenInput() {
     var c = AutoForm.Utility.getComponentContext(this, "afQuickField");
     var inputType = c.atts.type;
+    var hideFields = AutoForm.findAttribute('hideFields');
+    if (hideFields) {
+      hideFields = AutoForm.Utility.stringToArray(hideFields, 'AutoForm: hideFields attribute must be an array or a string containing a comma-delimited list of fields');
+      // console.log(hideFields);
+      if (hideFields.indexOf(c.atts.name) > -1){
+        // console.log(`going to hide: ${c.atts.name}`);
+        return true; // hide input
+      }
+    }
     if (inputType) {
       var componentDef = AutoForm._inputTypeDefinitions[inputType];
       if (!componentDef) {
